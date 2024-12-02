@@ -5,3 +5,6 @@ print(full_name)
 
 
 print(f"こんにちは{full_name.title()}!")
+
+massage = f"こんにちは{full_name.title()}!"
+print(massage)
