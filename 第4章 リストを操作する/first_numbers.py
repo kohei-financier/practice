@@ -56,3 +56,9 @@ for numbers in range(1, 20, 2):
 # 4-8
 """ squares = [value**3 for value in range(1,11)]
 print(squares) """
+
+numbers = list(range(1,11))
+print(sum(numbers))
+
+for numbers in range(2, 11, 2):
+    print(numbers**2*3.14)
