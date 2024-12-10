@@ -19,14 +19,41 @@ class Restaurant():
         msg = f"{self.name}が開店しました。ぜひご来店ください！"
         print(f"\n{msg}")
 
+    def set_number_served(self, number_served):
+        self.number_served = number_served
+
+    def increment_number_served(self, additional_served):
+        self.number_served += additional_served
+
+class IceCreamStand(Restaurant):
+
+    def __init__(self, name, cuisine_type='アイスクリーム'):
+        super().__init__(name, cuisine_type) 
+        self.flavors = []
+
+    def show_flavors(self):
+        print("\n以下のフレーバーが提供できます。")
+        for flavor in self.flavors:
+            print(f"-  {flavor.title()}")
 
 
 
 restaurant = Restaurant('malaychan', '東南アジア料理')
-print(restaurant.name)
-print(restaurant.cuisine_type)
-restaurant.number_served()
 restaurant.describe_restaurant()
-restaurant.open_restaurant()
+
+print(f"\n料理の提供数：{restaurant.number_served}")
+restaurant.set_number_served(46)
+print(f"\n料理の提供数：{restaurant.number_served}")
+
+restaurant.set_number_served(4567)
+print(f"\n料理の提供数：{restaurant.number_served}")
 
 
+restaurant.increment_number_served(164)
+print(f"\n料理の提供数：{restaurant.number_served}")
+
+blue_seal = IceCreamStand('ブルーシール')
+blue_seal.flavors = ['バニラ', '抹茶', '紅イモ', 'ウベ']
+
+blue_seal.describe_restaurant()
+blue_seal.show_flavors()
