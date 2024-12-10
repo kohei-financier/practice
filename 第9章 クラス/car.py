@@ -24,6 +24,38 @@ class Car:
     def increment_odometer(self, km):
         self.odometer_reading += km
 
+class Battery:
+
+    def __init__(self, battery_size=75):
+        self.battery_size = battery_size
+
+    def describe_battery(self):
+        print(f"この車のバッテリーは{self.battery_size}-kWhです。")
+
+    def get_range(self):
+        if self.battery_size == 75:
+            range = 420
+        elif self.battery_size == 100:
+            range = 510
+
+        print(f"この車の満充電時の航続距離は約{range}kmです。")        
+
+    def upgrade_battery(self):
+
+        if self.battery_size == 75:
+            self.battery_size = 100
+            print("バッテリーを100kWhにアップグレードしました。")
+        else:
+            print("バッテリーはアップグレード済みです。")
+
+    
+
+class ElectricCar(Car):
+    
+    def __init__(self, make, model, year):
+        super().__init__(make, model, year)
+        self.battery = Battery()
+
 my_used_car = Car('subaru', 'outback', 2015)
 print(my_used_car.get_descriptive_name())
 
