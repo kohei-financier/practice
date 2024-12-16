@@ -6,8 +6,8 @@
 #     print("ゼロで割ることはできません！")
 
 # # クラッシュしてしまう計算機で例外を使用してみる
-# print("数を2つ数えてください。割り算します。")
-# print("終了するには'q'を入力してください")
+print("数を2つ数えてください。割り算します。")
+print("終了するには'q'を入力してください")
 
 while True:
     first_number = input("\n1番目の数：　")
@@ -16,5 +16,9 @@ while True:
     second_number = input("2番目の数：　")
     if second_number == 'q':
         break
-    answer = int(first_number) / int(second_number)
-    print(answer)
+    try:
+        answer = int(first_number) / int(second_number)
+    except ZeroDivisionError:
+        print("ゼロで割ることはできません！")
+    else:
+        print(answer)
