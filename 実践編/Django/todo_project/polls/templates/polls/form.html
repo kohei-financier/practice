@@ -1,0 +1,13 @@
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+  </head>
+  <body>
+    <h3>メッセージ送信フォーム form.html</h3>
+    <form action="{% url 'polls:confirmform' %}" method="post">
+      {% csrf_token %}  <!-- 入力画面偽造防止用に隠しIDを埋め込む -->
+      <input type="text" id="message" name="message">
+      <input type="submit" value="送信">
+    </form>
+  </body>
+</html>

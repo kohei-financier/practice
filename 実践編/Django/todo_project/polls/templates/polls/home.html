@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ホーム</title>
+</head>
+<body>
+    <h1>ホームページです</h1>
+    <ul>
+        <li><a href="#">HOME</a></li>
+        <li><a href="#">サービス紹介</a></li>
+        <li><a href="#">最新情報</a></li>
+        <li><a href="#">ブログ</a></li>
+        <li><a href="#">お問い合わせ</a></li>
+        <li><a href="{%  url 'polls:index'  %}">index</a></li>
+    </ul>
+    <p>{{name}}</p>
+    <p>{{address}}</p>
+</body>
+</html>
