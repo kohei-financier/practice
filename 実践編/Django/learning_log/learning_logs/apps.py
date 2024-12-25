@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class LeaningLogsConfig(AppConfig):
+class learningLogsConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'leaning_logs'
+    name = 'learning_logs'
