@@ -10,7 +10,7 @@ if __name__ == "__main__":
     pygame.display.set_caption("pygame09")
 
     # 宇宙船
-    ship_image = pygame.image.load(r"C:\\Users\\0902JP\\python_workspace\\Pygame\\ship.bmp")
+    ship_image = pygame.image.load("Pygame\\ship.bmp")
     ship_rect = ship_image.get_rect()
     ship_rect.midbottom = (400, 500)
     ship_x = float(ship_rect.x)
@@ -20,7 +20,7 @@ if __name__ == "__main__":
     bullet_y = float(ship_rect.y)
 
     # エイリアン
-    alien_image = pygame.image.load(r"C:\\Users\\0902JP\\python_workspace\\Pygame\\alien.bmp")
+    alien_image = pygame.image.load("Pygame\\alien.bmp")
     alien_rect = alien_image.get_rect()
 
     # エイリアンの初期位置

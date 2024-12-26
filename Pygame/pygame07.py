@@ -10,7 +10,7 @@ if __name__ == "__main__":
     pygame.display.set_caption("pygame07")
 
     # 宇宙船
-    ship_image = pygame.image.load("ship.bmp")
+    ship_image = pygame.image.load("Pygame\\ship.bmp")
     ship_rect = ship_image.get_rect()
     ship_rect.midbottom = (400, 500)
 

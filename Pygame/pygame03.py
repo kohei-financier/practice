@@ -10,7 +10,7 @@ if __name__ == "__main__":
     pygame.display.set_caption("pygame03")
 
     # 画像ファイルを取り込む
-    ship_image = pygame.image.load(r"C:\\Users\\0902JP\\python_workspace\\Pygame\\ship.bmp")
+    ship_image = pygame.image.load("Pygame\\ship.bmp")
 
     # 画像ファイルから「四角形のオブジェ」を生成する
     ship_rect = ship_image.get_rect()

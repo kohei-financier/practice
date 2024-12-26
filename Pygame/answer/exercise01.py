@@ -29,7 +29,7 @@ if __name__ == "__main__":
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     pygame.display.set_caption("課題1")
 
-    ship_image = pygame.image.load("ship.bmp")
+    ship_image = pygame.image.load(r"C:\\Users\\0902JP\\python_workspace\\Pygame\\ship.bmp")
     ship_rect = ship_image.get_rect()
 
     # 初期位置
