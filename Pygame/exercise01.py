@@ -14,9 +14,9 @@ if __name__ == "__main__":
     ship_rect.midbottom = (400, 300)
 
     # 移動用管理フラグ
-    ship_right = True
+    ship_right = False
     ship_left = True
-    ship_up = True
+    ship_up = False
     ship_down = True
 
     # ship_rectのX座標
@@ -31,24 +31,28 @@ if __name__ == "__main__":
                 sys.exit()
 
         # ship_rect.rightはship_rectの右上のX座標、ship_rect.leftは左上のX座標
-        if ship_right == True and ship_rect.right:
+        if ship_left == True:
+            ship_x += 0.5
             if ship_rect.right >= 800:
-                ship_x -= 0.3
-
-        if ship_left == True and ship_rect.left:
-            if ship_rect.left < 0:
-                ship_x += 0.3
-        
+                ship_left = False
+                ship_right = True
+        elif ship_right == True:
+            ship_x -= 0.5
+            if ship_rect.left <= 0:
+                ship_left = True
+                ship_right = False
         ship_rect.x = ship_x
-        
-        if ship_up == True and ship_rect.top:
+
+        if ship_down == True:
+            ship_y += 0.5
             if ship_rect.bottom >= 600:
-                ship_y -= 0.3
-            
-        if ship_down == True and ship_rect.bottom:
-            if ship_rect.top < 0:
-                ship_y += 0.3
-        
+                ship_down = False
+                ship_up = True
+        elif ship_up == True:
+            ship_y -= 0.5
+            if ship_rect.top <= 0:
+                ship_down = True
+                ship_up = False
         ship_rect.y = ship_y
     
 
