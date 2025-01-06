@@ -1,5 +1,6 @@
 import pygame
 import sys
+from settings import Settings
 
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
@@ -15,6 +16,7 @@ class Othello:
     def __init__(self):
         """ゲームを初期化し、ゲームのリソースを作成する"""
         pygame.init()
+        self.settings = Settings()
         
-        self.screen = pygame.display.set_mode((SIZE, SIZE))
+        self.screen = pygame.display.set_mode((self.settings.screen_width, self.settings.screen_height))
         pygame.display.set_caption("オセロゲーム")
