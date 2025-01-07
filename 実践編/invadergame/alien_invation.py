@@ -1,9 +1,10 @@
 import sys
 import pygame
 
+from bullet import Bullet
 from settings import Settings
 from ship import Ship
-from sanji import Sanji
+# from sanji import Sanji
 
 class AlienInvasion:
     """ゲームのアセットと動作を管理する全体的なクラス"""
@@ -19,13 +20,15 @@ class AlienInvasion:
         pygame.display.set_caption("エイリアン侵略")
         
         self.ship = Ship(self)
-        self.sanji = Sanji(self)
+        # self.sanji = Sanji(self)
+        self.bullets = pygame.sprite.Group()
 
     def run_game(self):
         """ゲームのメインループを開始する"""
         while True:
             self._check_events()
             self.ship.update()
+            self._update_bullets()
             self._update_screen()
                     
     def _check_events(self):
@@ -48,6 +51,8 @@ class AlienInvasion:
             self.ship.moving_down = True
         elif event.key == pygame.K_UP:
             self.ship.moving_up = True
+        elif event.key == pygame.K_SPACE:
+            self._fire_bullet()
         elif event.key == pygame.K_q:
             sys.exit()
             
@@ -61,17 +66,34 @@ class AlienInvasion:
             self.ship.moving_down = False
         elif event.key == pygame.K_UP:
             self.ship.moving_up = False
-                
+    
+    def _fire_bullet(self):
+        """新しい弾を生成し、bulletsグループに追加する"""
+        if len(self.bullets) < self.settings.bullets_allowed:
+            new_bullet = Bullet(self)
+            self.bullets.add(new_bullet)        
+    
+    def _update_bullets(self):
+        """弾の位置を更新し、古い弾を廃棄する"""
+        self.bullets.update()
+        
+        # 見えなくなった弾を廃棄する
+        for bullet in self.bullets.copy():
+            if bullet.rect.bottom <= 0:
+                self.bullets.remove(bullet)
+        # print(len(self.bullets))
+
     def _update_screen(self):
         # ループを通過するたびに画面を再描画する
         self.screen.fill(self.settings.bg_color)
         self.ship.blitme()
-        self.sanji.blitme()
+        # self.sanji.blitme()
+        for bullet in self.bullets.sprites():
+            bullet.draw_bullet()
         
         # 最新の状態の画面を表示する
         pygame.display.flip()
-        
-            
+                 
 if __name__ == '__main__':
     # ゲームのインスタンスを作成し、ゲームを実行する
     ai = AlienInvasion()
