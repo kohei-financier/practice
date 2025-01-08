@@ -1,7 +1,9 @@
-text = """a
-b
 c
-"""
-
-print(text)
-
+# d -> b
+c
+b
+b
+a
+a
+b
+a
