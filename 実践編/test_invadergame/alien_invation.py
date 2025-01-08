@@ -5,6 +5,7 @@ from bullet import Bullet
 from settings import Settings
 from ship import Ship
 from alien import Alien
+# from sanji import Sanji
 
 class AlienInvasion:
     """ゲームのアセットと動作を管理する全体的なクラス"""
@@ -20,6 +21,7 @@ class AlienInvasion:
         pygame.display.set_caption("エイリアン侵略")
         
         self.ship = Ship(self)
+        # self.sanji = Sanji(self)
         self.bullets = pygame.sprite.Group()
         self.aliens = pygame.sprite.Group()
         
@@ -85,12 +87,6 @@ class AlienInvasion:
             if bullet.rect.bottom <= 0:
                 self.bullets.remove(bullet)
         # print(len(self.bullets))
-        collisions = pygame.sprite.groupcollide(self.bullets, self.aliens, True, True)
-
-        if not self.aliens:
-            # 存在する弾を破壊し、新しい艦隊を作成する
-            self.bullets.empty()
-            self._create_fleet()
 
     def _create_fleet(self):
         """エイリアンの艦隊を作成する"""
@@ -115,7 +111,10 @@ class AlienInvasion:
         """エイリアンを1匹作成し、列の中に配置する"""
         alien = Alien(self)
         alien_width, alien_height = alien.rect.size
-        alien.x = alien_width + 2*alien_width * alien_number
+        if row_number % 2 == 0:
+            alien.x = alien_width + alien_width + 2*alien_width * alien_number
+        else:
+            alien.x = alien_width + 2*alien_width * alien_number
         alien.rect.x = alien.x
         alien.rect.y = alien_height + 2*alien_height * row_number
         self.aliens.add(alien)
@@ -126,23 +125,20 @@ class AlienInvasion:
             if alien.check_edges():
                 self._change_fleet_direction()
                 break
-    
+            
     def _change_fleet_direction(self):
-        """艦隊を下に移動し、横移動の方向を変更する"""
         for alien in self.aliens.sprites():
-            alien.rect.y += self.settings.fleet_drop_speed
-        
-        self.settings.fleet_direction *= -1
+            alien.rect.y += self.aliens.update()
     
     def _update_aliens(self):
         """艦隊にいる全エイリアンの位置を更新する"""
-        self._check_fleet_edges()
         self.aliens.update()
-    
+        
     def _update_screen(self):
         # ループを通過するたびに画面を再描画する
         self.screen.fill(self.settings.bg_color)
         self.ship.blitme()
+        # self.sanji.blitme()
         for bullet in self.bullets.sprites():
             bullet.draw_bullet()
         self.aliens.draw(self.screen)
