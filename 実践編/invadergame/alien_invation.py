@@ -8,6 +8,7 @@ from alien import Alien
 from time import sleep
 from game_stats import GameStats
 from button import Button
+from scoreboard import Scoreboard
 
 class AlienInvasion:
     """ゲームのアセットと動作を管理する全体的なクラス"""
@@ -23,6 +24,7 @@ class AlienInvasion:
         pygame.display.set_caption("エイリアン侵略")
         
         self.stats = GameStats(self)
+        self.sb = Scoreboard(self)
         
         self.ship = Ship(self)
         self.bullets = pygame.sprite.Group()
@@ -69,6 +71,7 @@ class AlienInvasion:
             # ゲームの統計情報を初期化する
             self.stats.reset_stats()
             self.stats.game_active = True
+            self.sb.prep_score()
             
             # 残ったエイリアンと弾を廃棄する
             self.aliens.empty()
@@ -127,6 +130,11 @@ class AlienInvasion:
     def _check_bullet_alien_collisions(self):
         collisions = pygame.sprite.groupcollide(self.bullets, self.aliens, True, True)
 
+        if collisions:
+            for aliens in collisions.values():
+                self.stats.score += self.settings.alien_points * len(aliens)
+            self.sb.prep_score()
+            
         if not self.aliens:
             # 存在する弾を破壊し、新しい艦隊を作成する
             self.bullets.empty()
@@ -222,6 +230,10 @@ class AlienInvasion:
         for bullet in self.bullets.sprites():
             bullet.draw_bullet()
         self.aliens.draw(self.screen)
+        
+        # 得点の情報を描画する
+        self.sb.show_score()
+        self.sb.check_high_score()
         
         # ゲームが非アクティブ状態のときに「Play」ボタンを描画する
         if not self.stats.game_active:

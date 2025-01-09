@@ -11,7 +11,7 @@ class Settings:
         self.ship_limit = 3
         
         # 弾の設定
-        self.bullet_width = 3
+        self.bullet_width = 300
         self.bullet_height = 15
         self.bullet_color = (60, 60, 60)
         self.bullets_allowed = 6
@@ -21,6 +21,7 @@ class Settings:
         
         # ゲームのスピードアップする速さ
         self.speedup_scale = 1.1
+        self.score_scale = 1.5
         
         self.initialize_dynaminc_settings()
         
@@ -33,8 +34,13 @@ class Settings:
         # 艦隊の移動方向を表し、1は右、-1は左に移動することを表す
         self.fleet_direction = 1
         
+        # 点数
+        self.alien_points = 50
+        
     def increase_speed(self):
         """速度の設定値を増やす"""
         self.ship_speed *= self.speedup_scale
         self.bullet_speed *= self.speedup_scale
         self.alien_speed *= self.speedup_scale
+        
+        self.alien_points = int(self.alien_points * self.score_scale)
