@@ -7,6 +7,7 @@ from ship import Ship
 from alien import Alien
 from time import sleep
 from game_stats import GameStats
+from button import Button
 
 class AlienInvasion:
     """ゲームのアセットと動作を管理する全体的なクラス"""
@@ -28,6 +29,9 @@ class AlienInvasion:
         self.aliens = pygame.sprite.Group()
         
         self._create_fleet()
+        
+        # Playボタンを作成する
+        self.play_button = Button(self, "Play")
 
     def run_game(self):
         """ゲームのメインループを開始する"""
@@ -50,6 +54,28 @@ class AlienInvasion:
                 self._check_keydown_events(event)
             elif event.type == pygame.KEYUP:
                 self._check_keyup_events(event)
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                mouse_pos = pygame.mouse.get_pos()
+                self._check_play_button(mouse_pos)
+    
+    def _check_play_button(self, mouse_pos):
+        """プレイヤーがPlayボタンをクリックしたら新規ゲームを開始する"""
+        button_clicked = self.play_button.rect.collidepoint(mouse_pos)
+        if button_clicked and not self.stats.game_active:
+            # ゲームの統計情報を初期化する
+            self.stats.reset_stats()
+            self.stats.game_active = True
+            
+            # 残ったエイリアンと弾を廃棄する
+            self.aliens.empty()
+            self.bullets.empty()
+            
+            # 新しい艦隊を作成し、宇宙船を中央に配置する
+            self._create_fleet()
+            self.ship.center_ship()
+            
+            # マウスカーソルを非表示にする
+            pygame.mouse.set_visible(False)
     
     def _check_keydown_events(self, event):
         """キーを押すイベントに対応する"""
@@ -101,6 +127,7 @@ class AlienInvasion:
             # 存在する弾を破壊し、新しい艦隊を作成する
             self.bullets.empty()
             self._create_fleet()
+            self.settings.increase_speed()
 
     def _create_fleet(self):
         """エイリアンの艦隊を作成する"""
@@ -182,6 +209,7 @@ class AlienInvasion:
 
         else:
             self.stats.game_active = False
+            pygame.mouse.set_visible(True)
     
     def _update_screen(self):
         # ループを通過するたびに画面を再描画する
@@ -190,6 +218,10 @@ class AlienInvasion:
         for bullet in self.bullets.sprites():
             bullet.draw_bullet()
         self.aliens.draw(self.screen)
+        
+        # ゲームが非アクティブ状態のときに「Play」ボタンを描画する
+        if not self.stats.game_active:
+            self.play_button.draw_button()
         
         # 最新の状態の画面を表示する
         pygame.display.flip()
