@@ -40,7 +40,7 @@ class Settings:
     def increase_speed(self):
         """速度の設定値を増やす"""
         self.ship_speed *= self.speedup_scale
-        self.bullet_speed *= self.speedup_scale
+        # self.bullet_speed *= self.speedup_scale
         self.alien_speed *= self.speedup_scale
         
         self.alien_points = int(self.alien_points * self.score_scale)
