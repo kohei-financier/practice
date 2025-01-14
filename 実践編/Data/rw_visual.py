@@ -5,15 +5,14 @@ from random_walk import RandomWalk
 # プログラムが動作している間、新しいランダムウォークを作成しつづける
 while True:
     # ランダムウォークを作成する
-    rw = RandomWalk(50_000)
+    rw = RandomWalk(5000)
     rw.fill_walk()
 
     # ランダムウォークの点を描画する
     plt.style.use('classic')
     fig, ax = plt.subplots(figsize=(15, 9))
     point_numbers = range(rw.num_points)
-    ax.scatter(rw.x_values, rw.y_values, c=point_numbers, cmap=plt.cm.Blues,
-        edgecolor='none', s=1)
+    ax.plot(rw.x_values, rw.y_values, linewidth=0.5)
 
     # 開始点と終了点を強調する
     ax.scatter(0, 0, c='green', edgecolors='none', s=100)
