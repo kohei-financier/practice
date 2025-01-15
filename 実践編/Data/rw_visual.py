@@ -9,15 +9,14 @@ while True:
     rw.fill_walk()
 
     # ランダムウォークの点を描画する
-    plt.style.use('classic')
+    plt.style.use("classic")
     fig, ax = plt.subplots(figsize=(15, 9))
     point_numbers = range(rw.num_points)
     ax.plot(rw.x_values, rw.y_values, linewidth=0.5)
 
     # 開始点と終了点を強調する
-    ax.scatter(0, 0, c='green', edgecolors='none', s=100)
-    ax.scatter(rw.x_values[-1], rw.y_values[-1], c='red', edgecolors='none',
-        s=100)
+    ax.scatter(0, 0, c="green", edgecolors="none", s=100)
+    ax.scatter(rw.x_values[-1], rw.y_values[-1], c="red", edgecolors="none", s=100)
 
     # 軸を削除する
     ax.get_xaxis().set_visible(False)
@@ -26,5 +25,5 @@ while True:
     plt.show()
 
     keep_running = input("別のランダムウォークを生成する？(y/n): ")
-    if keep_running == 'n':
+    if keep_running == "n":
         break
